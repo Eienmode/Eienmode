@@ -38,10 +38,6 @@
 </p>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=Eienmode&hide_border=true&background=1A1B27&ring=9D4EDD&fire=E0245E&currStreakNum=FF4F8B&currStreakLabel=FF4F8B&sideNums=C0CAF5&sideLabels=BB9AF7&dates=565F89&stroke=414868" alt="GitHub streak" />
-</p>
-
-<p align="center">
   <img width="100%" src="cards/contributions.svg" alt="Contributions in the past year" />
 </p>
 
