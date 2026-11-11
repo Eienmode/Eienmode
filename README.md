@@ -25,21 +25,26 @@
 
 ---
 
-### 📊 GitHub stats <sub>(live — refreshed every time someone views this page)</sub>
+### 📊 GitHub stats <sub>(auto-updated every 4 hours, includes private repos)</sub>
 
 <p align="center">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=Eienmode&show_icons=true&include_all_commits=true&count_private=true&rank_icon=github&hide_border=true&bg_color=1a1b27&title_color=ff4f8b&icon_color=e0245e&text_color=c0caf5&ring_color=9d4edd" alt="GitHub stats" />
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Eienmode&layout=compact&langs_count=8&hide_border=true&bg_color=1a1b27&title_color=ff4f8b&text_color=c0caf5" alt="Top languages" />
+  <img width="100%" src="cards/stats.svg" alt="GitHub stats" />
 </p>
 
+### 🧠 Languages I use <sub>(every language across all my repos)</sub>
+
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=Eienmode&hide_border=true&background=1A1B27&ring=9D4EDD&fire=E0245E&currStreakNum=FF4F8B&currStreakLabel=FF4F8B&sideNums=C0CAF5&sideLabels=BB9AF7&dates=565F89&stroke=414868" alt="GitHub streak" />
+  <img width="100%" src="cards/languages.svg" alt="Languages I use" />
 </p>
 
 ### 📈 Contribution activity
 
 <p align="center">
-  <img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=Eienmode&hide_border=true&bg_color=1a1b27&color=bb9af7&line=ff4f8b&point=e0245e&area=true&area_color=9d4edd&title_color=ff4f8b" alt="contribution graph" />
+  <img width="100%" src="cards/activity.svg" alt="contribution graph" />
+</p>
+
+<p align="center">
+  <img src="https://streak-stats.demolab.com?user=Eienmode&hide_border=true&background=1A1B27&ring=9D4EDD&fire=E0245E&currStreakNum=FF4F8B&currStreakLabel=FF4F8B&sideNums=C0CAF5&sideLabels=BB9AF7&dates=565F89&stroke=414868" alt="GitHub streak" />
 </p>
 
 ### 🐍 Contribution snake <sub>(regenerated daily)</sub>
@@ -49,18 +54,6 @@
 </p>
 
 ---
-
-### 🧠 Languages I actually use <sub>(analyzed from my commits, incl. private repos — updated every 12 hours)</sub>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Eienmode/Eienmode/main/metrics.languages.svg" alt="languages from commits" />
-</p>
-
-### ⏰ Coding habits <sub>(updated every 12 hours)</sub>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Eienmode/Eienmode/main/metrics.habits.svg" alt="coding habits" />
-</p>
 
 ### 🔥 Recent activity <sub>(updated every 6 hours)</sub>
 
