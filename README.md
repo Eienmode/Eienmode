@@ -18,8 +18,9 @@
 ---
 
 <p align="center">
-  <img width="49%" src="cards/about.svg" alt="About me" />
-  <img width="49%" src="cards/streak.svg" alt="Streaks" />
+  <img width="47%" src="cards/about.svg" alt="About me" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img width="47%" src="cards/streak.svg" alt="Streaks" />
 </p>
 
 ---
