@@ -121,7 +121,9 @@ def fetch(token):
         "days": [(d["date"], d["contributionCount"]) for d in days],
         "weeks": [[(d["date"], d["contributionCount"]) for d in w["contributionDays"]]
                   for w in cc["contributionCalendar"]["weeks"]],
-        "history": history,
+        # recent days from the main calendar win, so the streak card always matches it
+        "history": sorted({**dict(history),
+                           **{d["date"]: d["contributionCount"] for d in days}}.items()),
     }
 
 
