@@ -2,6 +2,7 @@ name: Update stat cards
 
 # Draws cards/stats.svg, cards/languages.svg and cards/activity.svg from your
 # GitHub data (public + private repos) using the METRICS_TOKEN secret.
+# Also draws cards/contributions.svg (full-year contribution calendar).
 
 on:
   schedule:
