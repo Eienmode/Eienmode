@@ -28,6 +28,13 @@ RED = "#e0245e"
 FONT = "'Segoe UI', Ubuntu, 'Helvetica Neue', Sans-Serif"
 W = 840
 
+# Edit these to change the "About me" card (keep each value under ~45 characters)
+ABOUT = [
+    ("working_on", "whatever's in my pinned repos"),
+    ("learning", "something new every week"),
+    ("fun_fact", "this profile updates itself"),
+]
+
 QUERY = """
 query($cursor: String) {
   viewer {
@@ -62,10 +69,10 @@ query($cursor: String) {
 
 # ---------------------------------------------------------------- data
 
-def graphql(token, variables):
+def graphql(token, variables, query=QUERY):
     req = urllib.request.Request(
         "https://api.github.com/graphql",
-        data=json.dumps({"query": QUERY, "variables": variables}).encode(),
+        data=json.dumps({"query": query, "variables": variables}).encode(),
         headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"},
     )
     with urllib.request.urlopen(req, timeout=60) as resp:
@@ -94,6 +101,8 @@ def fetch(token):
             entry["bytes"] += edge["size"]
             entry["repos"] += 1
 
+    history = fetch_history(token)
+
     cc = first["contributionsCollection"]
     days = [d for w in cc["contributionCalendar"]["weeks"] for d in w["contributionDays"]]
     return {
@@ -112,7 +121,27 @@ def fetch(token):
         "days": [(d["date"], d["contributionCount"]) for d in days],
         "weeks": [[(d["date"], d["contributionCount"]) for d in w["contributionDays"]]
                   for w in cc["contributionCalendar"]["weeks"]],
+        "history": history,
     }
+
+
+def fetch_history(token):
+    """Every day since the first contribution year (for all-time streaks and totals)."""
+    years = graphql(token, {}, "query { viewer { contributionsCollection { contributionYears } } }")
+    years = sorted(years["contributionsCollection"]["contributionYears"])
+    fields = "\n".join(
+        f'y{y}: contributionsCollection(from: "{y}-01-01T00:00:00Z", to: "{y}-12-31T23:59:59Z") '
+        f'{{ contributionCalendar {{ weeks {{ contributionDays {{ date contributionCount }} }} }} }}'
+        for y in years)
+    data = graphql(token, {}, f"query {{ viewer {{ {fields} }} }}")
+    today = date.today().isoformat()
+    days = {}
+    for y in years:
+        for w in data[f"y{y}"]["contributionCalendar"]["weeks"]:
+            for d in w["contributionDays"]:
+                if d["date"] <= today:
+                    days[d["date"]] = d["contributionCount"]
+    return sorted(days.items())
 
 
 def sample():
@@ -129,6 +158,7 @@ def sample():
                 for o in range(start, today + 1)]
     weeks = [days_all[i:i + 7] for i in range(0, len(days_all), 7)]
     return {
+        "history": days_all,
         "weeks": weeks,
         "login": "Eienmode",
         "languages": {n: {"bytes": b, "repos": r, "color": c} for n, c, b, r in names},
@@ -156,10 +186,10 @@ def size(b):
         b /= 1000
 
 
-def card(height, body, title, subtitle=""):
-    sub = (f'<text x="{W - 25}" y="38" text-anchor="end" class="muted">{escape(subtitle)}</text>'
+def card(height, body, title, subtitle="", width=W):
+    sub = (f'<text x="{width - 25}" y="38" text-anchor="end" class="muted">{escape(subtitle)}</text>'
            if subtitle else "")
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{height}" viewBox="0 0 {W} {height}" fill="none" role="img">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" role="img">
 <title>{escape(title)}</title>
 <style>
   text {{ font-family: {FONT}; }}
@@ -170,7 +200,7 @@ def card(height, body, title, subtitle=""):
   @keyframes fade {{ to {{ opacity: 1; }} }}
   @keyframes grow {{ from {{ transform: scaleX(0); }} to {{ transform: scaleX(1); }} }}
 </style>
-<rect x="0.5" y="0.5" width="{W - 1}" height="{height - 1}" rx="10" fill="{BG}" stroke="{BORDER}"/>
+<rect x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" rx="10" fill="{BG}" stroke="{BORDER}"/>
 <text x="25" y="38" class="title">{escape(title)}</text>
 {sub}
 {body}
@@ -321,22 +351,11 @@ def heatmap_card(weeks):
     total = sum(c for _, c in days)
     active = sum(1 for _, c in days if c > 0)
     best_d, best_c = max(days, key=lambda d: d[1]) if days else ("", 0)
-    streak = longest = 0
-    for _, c in days:
-        streak = streak + 1 if c > 0 else 0
-        longest = max(longest, streak)
-    current = 0
-    for i, (_, c) in enumerate(reversed(days)):
-        if c > 0:
-            current += 1
-        elif i > 0:  # today with 0 doesn't break the streak yet
-            break
     best_label = datetime.fromisoformat(best_d).strftime("%b %d") if best_d else "-"
     summary = [(short(total), "contributions"), (str(active), "active days"),
-               (f"{best_c}", f"best day · {best_label}"), (f"{longest}d", "longest streak"),
-               (f"{current}d", "current streak")]
+               (f"{best_c}", f"best day · {best_label}")]
     sx = (W - 50) / len(summary)
-    colors = [TITLE, LILAC, RED, PURPLE, TITLE]
+    colors = [TITLE, LILAC, RED]
     for i, (val, label) in enumerate(summary):
         x = 25 + sx * i + sx / 2
         parts.append(f'<text x="{x:.0f}" y="62" text-anchor="middle" style="font-size:16px;font-weight:800;fill:{colors[i]}">{escape(val)}'
@@ -371,14 +390,102 @@ def heatmap_card(weeks):
     for i, colr in enumerate(levels):
         parts.append(f'<rect x="{lx + i * pitch:.1f}" y="{ly}" width="{cell}" height="{cell}" rx="2.5" fill="{colr}"/>')
     parts.append(f'<text x="{lx + 5 * pitch + 6:.1f}" y="{ly + 9}" class="muted">More</text>')
-    if cuts[0] < cuts[1] < cuts[2]:
-        def rng_s(a, b):
-            return str(a) if a == b else f"{a}–{b}"
-        parts.append(f'<text x="{left:.1f}" y="{ly + 9}" class="muted">'
-                     f'per day: {rng_s(1, cuts[0])} · {rng_s(cuts[0] + 1, cuts[1])} · '
-                     f'{rng_s(cuts[1] + 1, cuts[2])} · {cuts[2] + 1}+</text>')
 
     return card(int(ly + 32), "\n".join(parts), "Contributions · past year", "")
+
+
+def streaks(days):
+    """-> (current, cur_start, cur_end, longest, long_start, long_end).
+    Today with 0 contributions doesn't break the current streak yet."""
+    longest = run = 0
+    long_s = long_e = run_s = None
+    for d, c in days:
+        if c > 0:
+            if run == 0:
+                run_s = d
+            run += 1
+            if run > longest:
+                longest, long_s, long_e = run, run_s, d
+        else:
+            run = 0
+    cur, cur_s, cur_e = 0, None, None
+    for i, (d, c) in enumerate(reversed(days)):
+        if c > 0:
+            cur += 1
+            cur_s = d
+            cur_e = cur_e or d
+        elif i > 0:
+            break
+    return cur, cur_s, cur_e, longest, long_s, long_e
+
+
+def span(a, b):
+    if not a:
+        return "-"
+    fa, fb = datetime.fromisoformat(a), datetime.fromisoformat(b)
+    if a == b:
+        return fa.strftime("%b %d")
+    if fa.year != fb.year:
+        return f"{fa.strftime('%b %d, %Y')} – {fb.strftime('%b %d, %Y')}"
+    return f"{fa.strftime('%b %d')} – {fb.strftime('%b %d')}"
+
+
+SIDE_W, SIDE_H = 410, 200
+
+
+def streak_card(history):
+    cur, cs, ce, longest, ls, le = streaks(history)
+    total = sum(c for _, c in history)
+    first = next((d for d, c in history if c > 0), None)
+    since = f"since {datetime.fromisoformat(first).strftime('%b %Y')}" if first else ""
+    cx = SIDE_W / 2
+    cy = 104
+    r = 36
+    circ = 2 * 3.14159 * r
+    parts = [
+        f'<defs><linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">'
+        f'<stop offset="0" stop-color="{RED}"/><stop offset=".5" stop-color="{TITLE}"/>'
+        f'<stop offset="1" stop-color="{PURPLE}"/></linearGradient></defs>',
+        f'<style>.ring {{ stroke-dasharray: {circ:.1f}; stroke-dashoffset: {circ:.1f}; '
+        f'animation: draw 1.2s ease-out .2s forwards; }} @keyframes draw {{ to {{ stroke-dashoffset: 0; }} }}</style>',
+        f'<circle cx="{cx}" cy="{cy}" r="{r}" stroke="{BORDER}" stroke-width="6" fill="none"/>',
+        f'<circle cx="{cx}" cy="{cy}" r="{r}" stroke="url(#ring)" stroke-width="6" fill="none" '
+        f'stroke-linecap="round" class="ring" transform="rotate(-90 {cx} {cy})"/>',
+        f'<rect x="{cx - 11}" y="{cy - r - 13}" width="22" height="24" fill="{BG}"/>',
+        f'<path transform="translate({cx - 9} {cy - r - 13}) scale(.75)" fill="{RED}" '
+        f'd="M12 0c1 5 9 9 9 17a9 9 0 0 1-18 0c0-4 2-7 4-9 0 4 2 6 4 7 0-6-3-10 1-15z"/>',
+        f'<text x="{cx}" y="{cy + 10}" text-anchor="middle" class="fade" '
+        f'style="font-size:30px;font-weight:800;fill:{TITLE};animation-delay:.4s">{cur}</text>',
+        f'<text x="{cx}" y="{cy + 64}" text-anchor="middle" style="font-size:13px;font-weight:700;fill:{TITLE}">Current streak</text>',
+        f'<text x="{cx}" y="{cy + 81}" text-anchor="middle" class="muted" style="font-size:11px">{escape(span(cs, ce))}</text>',
+    ]
+    for x, val, label, sub, color in ((68, short(total), "Total contributions", since, LILAC),
+                                      (SIDE_W - 68, str(longest), "Longest streak", span(ls, le), PURPLE)):
+        parts.append(
+            f'<g class="fade" style="animation-delay:.3s">'
+            f'<text x="{x}" y="{cy + 10}" text-anchor="middle" style="font-size:28px;font-weight:800;fill:{color}">{val}</text>'
+            f'<text x="{x}" y="{cy + 64}" text-anchor="middle" class="label">{escape(label)}</text>'
+            f'<text x="{x}" y="{cy + 81}" text-anchor="middle" class="muted" style="font-size:11px">{escape(sub)}</text></g>')
+    for x in (SIDE_W / 2 - 72, SIDE_W / 2 + 72):
+        parts.append(f'<line x1="{x}" y1="66" x2="{x}" y2="180" stroke="{BORDER}"/>')
+    return card(SIDE_H, "\n".join(parts), "Streaks", "", width=SIDE_W)
+
+
+def about_card():
+    mono = "font-family:'Fira Code', Consolas, 'Courier New', monospace"
+    parts = ["<style>.blink { animation: blink 1s steps(1) infinite; } "
+             "@keyframes blink { 50% { opacity: 0; } }</style>"]
+    for i, (key, value) in enumerate(ABOUT):
+        y = 70 + i * 40
+        parts.append(
+            f'<g class="fade" style="animation-delay:{0.2 + i * 0.25:.2f}s">'
+            f'<text x="25" y="{y}" style="{mono};font-size:12px;fill:{MUTED}">'
+            f'<tspan fill="{TITLE}">&gt;</tspan> {escape(key)}</text>'
+            f'<text x="39" y="{y + 19}" style="{mono};font-size:13.5px;fill:{TEXT}">{escape(value)}</text></g>')
+    y = 70 + len(ABOUT) * 40 + 2
+    parts.append(f'<text x="25" y="{y}" style="{mono};font-size:13px;fill:{TITLE}">&gt; '
+                 f'<tspan class="blink">_</tspan></text>')
+    return card(SIDE_H, "\n".join(parts), "About me", "~/eienmode", width=SIDE_W)
 
 
 # ---------------------------------------------------------------- main
@@ -397,6 +504,8 @@ def main():
         "stats.svg": stats_card(data["stats"]),
         "activity.svg": activity_card(data["days"]),
         "contributions.svg": heatmap_card(data["weeks"]),
+        "streak.svg": streak_card(data["history"]),
+        "about.svg": about_card(),
     }
     for name, svg in outputs.items():
         if svg:

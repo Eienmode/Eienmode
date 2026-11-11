@@ -17,11 +17,10 @@
 
 ---
 
-### <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="28"> About me
-
-- 🔭 Working on: *whatever's in my pinned repos right now*
-- 🌱 Learning: *something new every week*
-- ⚡ Fun fact: *this profile updates itself*
+<p align="center">
+  <img width="49%" src="cards/about.svg" alt="About me" />
+  <img width="49%" src="cards/streak.svg" alt="Streaks" />
+</p>
 
 ---
 
