@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="220" viewBox="0 0 840 220" fill="none" role="img">
+<title>GitHub stats</title>
+<style>
+  text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', Sans-Serif; }
+  .title { font-size: 19px; font-weight: 700; fill: #ff4f8b; }
+  .muted { font-size: 12px; fill: #565f89; }
+  .label { font-size: 13px; fill: #c0caf5; }
+  .fade { opacity: 0; animation: fade .5s ease-out forwards; }
+  @keyframes fade { to { opacity: 1; } }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+</style>
+<rect x="0.5" y="0.5" width="839" height="219" rx="10" fill="#1a1b27" stroke="#2a2b3d"/>
+<text x="25" y="38" class="title">GitHub stats</text>
+<text x="815" y="38" text-anchor="end" class="muted">updated Nov 11, 2026 15:56 UTC</text>
+<g class="fade" style="animation-delay:0.10s"><text x="123.75" y="95" text-anchor="middle" style="font-size:30px;font-weight:800;fill:#ff4f8b">0</text><text x="123.75" y="117" text-anchor="middle" class="label">Total stars</text></g>
+<g class="fade" style="animation-delay:0.17s"><text x="321.25" y="95" text-anchor="middle" style="font-size:30px;font-weight:800;fill:#bb9af7">182</text><text x="321.25" y="117" text-anchor="middle" class="label">Commits (past year)</text></g>
+<g class="fade" style="animation-delay:0.24s"><text x="518.75" y="95" text-anchor="middle" style="font-size:30px;font-weight:800;fill:#e0245e">189</text><text x="518.75" y="117" text-anchor="middle" class="label">Contributions (past year)</text></g>
+<g class="fade" style="animation-delay:0.31s"><text x="716.25" y="95" text-anchor="middle" style="font-size:30px;font-weight:800;fill:#9d4edd">0</text><text x="716.25" y="117" text-anchor="middle" class="label">Pull requests</text></g>
+<g class="fade" style="animation-delay:0.38s"><text x="123.75" y="175" text-anchor="middle" style="font-size:30px;font-weight:800;fill:#ff4f8b">0</text><text x="123.75" y="197" text-anchor="middle" class="label">Issues</text></g>
+<g class="fade" style="animation-delay:0.45s"><text x="321.25" y="175" text-anchor="middle" style="font-size:30px;font-weight:800;fill:#bb9af7">7</text><text x="321.25" y="197" text-anchor="middle" class="label">Repositories</text></g>
+<g class="fade" style="animation-delay:0.52s"><text x="518.75" y="175" text-anchor="middle" style="font-size:30px;font-weight:800;fill:#e0245e">0</text><text x="518.75" y="197" text-anchor="middle" class="label">Contributed to</text></g>
+<g class="fade" style="animation-delay:0.59s"><text x="716.25" y="175" text-anchor="middle" style="font-size:30px;font-weight:800;fill:#9d4edd">6</text><text x="716.25" y="197" text-anchor="middle" class="label">Followers</text></g>
+</svg>
