@@ -34,6 +34,7 @@ jobs:
           committer_token: ${{ secrets.GITHUB_TOKEN }}
           filename: metrics.languages.svg
           base: ""
+          config_timezone: Asia/Singapore
           template: classic
           repositories_affiliations: owner, collaborator
           plugin_languages: yes
@@ -42,7 +43,7 @@ jobs:
           plugin_languages_details: percentage, bytes-size
           plugin_languages_limit: 8
           plugin_languages_threshold: 1%
-          plugin_languages_recent_days: 14
+          plugin_languages_recent_days: 30
           plugin_languages_recent_load: 400
           plugin_languages_colors: github
           extras_css: "h2 { color: #ff4f8b !important; } h2 svg { fill: #ff4f8b !important; }"
@@ -55,10 +56,11 @@ jobs:
           committer_token: ${{ secrets.GITHUB_TOKEN }}
           filename: metrics.habits.svg
           base: ""
+          config_timezone: Asia/Singapore
           template: classic
           plugin_habits: yes
           plugin_habits_from: 200
-          plugin_habits_days: 14
+          plugin_habits_days: 30
           plugin_habits_facts: yes
-          plugin_habits_charts: yes
+          plugin_habits_charts: no
           extras_css: "h2 { color: #ff4f8b !important; } h2 svg { fill: #ff4f8b !important; }"
