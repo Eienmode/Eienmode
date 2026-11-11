@@ -1,6 +1,6 @@
 <!-- ============ HEADER ============ -->
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:e0245e,50:ff4f8b,100:9d4edd&height=200&section=header&text=Hey,%20I'm%20Eien&fontSize=60&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Eienmode&descAlignY=58&descSize=20" alt="header" />
+  <img width="100%" src="cards/header.svg" alt="EIENMODE" />
 </p>
 
 <p align="center">
@@ -63,5 +63,5 @@
 ---
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:9d4edd,50:ff4f8b,100:e0245e&height=120&section=footer" alt="footer" />
+  <img width="100%" src="cards/footer.svg" alt="thanks for visiting" />
 </p>
