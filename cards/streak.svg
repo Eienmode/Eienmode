@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="410" height="200" viewBox="0 0 410 200" fill="none" role="img">
+<title>Streaks</title>
+<style>
+  text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', Sans-Serif; }
+  .title { font-size: 19px; font-weight: 700; fill: #ff4f8b; }
+  .muted { font-size: 12px; fill: #565f89; }
+  .label { font-size: 13px; fill: #c0caf5; }
+  .fade { opacity: 0; animation: fade .5s ease-out forwards; }
+  @keyframes fade { to { opacity: 1; } }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+</style>
+<rect x="0.5" y="0.5" width="409" height="199" rx="10" fill="#1a1b27" stroke="#2a2b3d"/>
+<text x="25" y="38" class="title">Streaks</text>
+
+<defs><linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0245e"/><stop offset=".5" stop-color="#ff4f8b"/><stop offset="1" stop-color="#9d4edd"/></linearGradient></defs>
+<style>.ring { stroke-dasharray: 226.2; stroke-dashoffset: 226.2; animation: draw 1.2s ease-out .2s forwards; } @keyframes draw { to { stroke-dashoffset: 0; } }</style>
+<circle cx="205.0" cy="104" r="36" stroke="#2a2b3d" stroke-width="6" fill="none"/>
+<circle cx="205.0" cy="104" r="36" stroke="url(#ring)" stroke-width="6" fill="none" stroke-linecap="round" class="ring" transform="rotate(-90 205.0 104)"/>
+<rect x="194.0" y="55" width="22" height="24" fill="#1a1b27"/>
+<path transform="translate(196.0 55) scale(.75)" fill="#e0245e" d="M12 0c1 5 9 9 9 17a9 9 0 0 1-18 0c0-4 2-7 4-9 0 4 2 6 4 7 0-6-3-10 1-15z"/>
+<text x="205.0" y="114" text-anchor="middle" class="fade" style="font-size:30px;font-weight:800;fill:#ff4f8b;animation-delay:.4s">1</text>
+<text x="205.0" y="168" text-anchor="middle" style="font-size:13px;font-weight:700;fill:#ff4f8b">Current streak</text>
+<text x="205.0" y="185" text-anchor="middle" class="muted" style="font-size:11px">Nov 11</text>
+<g class="fade" style="animation-delay:.3s"><text x="68" y="114" text-anchor="middle" style="font-size:28px;font-weight:800;fill:#bb9af7">193</text><text x="68" y="168" text-anchor="middle" class="label">Total contributions</text><text x="68" y="185" text-anchor="middle" class="muted" style="font-size:11px">since Aug 2021</text></g>
+<g class="fade" style="animation-delay:.3s"><text x="342" y="114" text-anchor="middle" style="font-size:28px;font-weight:800;fill:#9d4edd">4</text><text x="342" y="168" text-anchor="middle" class="label">Longest streak</text><text x="342" y="185" text-anchor="middle" class="muted" style="font-size:11px">Oct 29 – Nov 01</text></g>
+<line x1="133.0" y1="66" x2="133.0" y2="180" stroke="#2a2b3d"/>
+<line x1="277.0" y1="66" x2="277.0" y2="180" stroke="#2a2b3d"/>
+</svg>

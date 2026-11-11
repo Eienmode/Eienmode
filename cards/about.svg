@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="410" height="200" viewBox="0 0 410 200" fill="none" role="img">
+<title>About me</title>
+<style>
+  text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', Sans-Serif; }
+  .title { font-size: 19px; font-weight: 700; fill: #ff4f8b; }
+  .muted { font-size: 12px; fill: #565f89; }
+  .label { font-size: 13px; fill: #c0caf5; }
+  .fade { opacity: 0; animation: fade .5s ease-out forwards; }
+  @keyframes fade { to { opacity: 1; } }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+</style>
+<rect x="0.5" y="0.5" width="409" height="199" rx="10" fill="#1a1b27" stroke="#2a2b3d"/>
+<text x="25" y="38" class="title">About me</text>
+<text x="385" y="38" text-anchor="end" class="muted">~/eienmode</text>
+<style>.blink { animation: blink 1s steps(1) infinite; } @keyframes blink { 50% { opacity: 0; } }</style>
+<g class="fade" style="animation-delay:0.20s"><text x="25" y="70" style="font-family:'Fira Code', Consolas, 'Courier New', monospace;font-size:12px;fill:#565f89"><tspan fill="#ff4f8b">&gt;</tspan> working_on</text><text x="39" y="89" style="font-family:'Fira Code', Consolas, 'Courier New', monospace;font-size:13.5px;fill:#c0caf5">whatever&#x27;s in my pinned repos</text></g>
+<g class="fade" style="animation-delay:0.45s"><text x="25" y="110" style="font-family:'Fira Code', Consolas, 'Courier New', monospace;font-size:12px;fill:#565f89"><tspan fill="#ff4f8b">&gt;</tspan> learning</text><text x="39" y="129" style="font-family:'Fira Code', Consolas, 'Courier New', monospace;font-size:13.5px;fill:#c0caf5">something new every week</text></g>
+<g class="fade" style="animation-delay:0.70s"><text x="25" y="150" style="font-family:'Fira Code', Consolas, 'Courier New', monospace;font-size:12px;fill:#565f89"><tspan fill="#ff4f8b">&gt;</tspan> fun_fact</text><text x="39" y="169" style="font-family:'Fira Code', Consolas, 'Courier New', monospace;font-size:13.5px;fill:#c0caf5">this profile updates itself</text></g>
+<text x="25" y="192" style="font-family:'Fira Code', Consolas, 'Courier New', monospace;font-size:13px;fill:#ff4f8b">&gt; <tspan class="blink">_</tspan></text>
+</svg>
