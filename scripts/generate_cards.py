@@ -110,6 +110,8 @@ def fetch(token):
             "Followers": first["followers"]["totalCount"],
         },
         "days": [(d["date"], d["contributionCount"]) for d in days],
+        "weeks": [[(d["date"], d["contributionCount"]) for d in w["contributionDays"]]
+                  for w in cc["contributionCalendar"]["weeks"]],
     }
 
 
@@ -122,7 +124,12 @@ def sample():
              ("PHP", "#4F5D95", 300, 1), ("Lua", "#000080", 150, 1), ("Batchfile", "#C1F12E", 90, 1),
              ("PowerShell", "#012456", 60, 1), ("Dockerfile", "#384d54", 20, 1)]
     today = date.today().toordinal()
+    start = today - 364 - (date.fromordinal(today - 364).isoweekday() % 7)  # back to Sunday
+    days_all = [(date.fromordinal(o).isoformat(), max(0, int(random.gauss(1, 4))))
+                for o in range(start, today + 1)]
+    weeks = [days_all[i:i + 7] for i in range(0, len(days_all), 7)]
     return {
+        "weeks": weeks,
         "login": "Eienmode",
         "languages": {n: {"bytes": b, "repos": r, "color": c} for n, c, b, r in names},
         "stats": {"Total stars": 12, "Commits (past year)": 188, "Contributions (past year)": 203,
@@ -286,6 +293,94 @@ def activity_card(days, n=31):
     return card(285, "\n".join(parts), f"Contributions · last {n} days", f"{total} contributions")
 
 
+def heatmap_card(weeks):
+    """Full-year contribution calendar: every day readable, with month labels,
+    a legend, hover tooltips and a few summary numbers."""
+    levels = ["#24253a", "#4a1d5c", "#7b2d8e", "#c2357a", "#ff4f8b"]
+    days = [d for w in weeks for d in w]
+    nonzero = sorted(c for _, c in days if c > 0)
+
+    def q(p):
+        return nonzero[min(len(nonzero) - 1, int(p * len(nonzero)))] if nonzero else 1
+
+    cuts = [q(0.25), q(0.5), q(0.75)]
+
+    def level(c):
+        if c == 0:
+            return 0
+        return 1 + sum(c > cut for cut in cuts)
+
+    cell, gap = 11, 3
+    pitch = cell + gap
+    grid_w = len(weeks) * pitch - gap
+    left = (W - grid_w) / 2 + 14
+    top = 92
+    parts = []
+
+    # summary numbers
+    total = sum(c for _, c in days)
+    active = sum(1 for _, c in days if c > 0)
+    best_d, best_c = max(days, key=lambda d: d[1]) if days else ("", 0)
+    streak = longest = 0
+    for _, c in days:
+        streak = streak + 1 if c > 0 else 0
+        longest = max(longest, streak)
+    current = 0
+    for i, (_, c) in enumerate(reversed(days)):
+        if c > 0:
+            current += 1
+        elif i > 0:  # today with 0 doesn't break the streak yet
+            break
+    best_label = datetime.fromisoformat(best_d).strftime("%b %d") if best_d else "-"
+    summary = [(short(total), "contributions"), (str(active), "active days"),
+               (f"{best_c}", f"best day · {best_label}"), (f"{longest}d", "longest streak"),
+               (f"{current}d", "current streak")]
+    sx = (W - 50) / len(summary)
+    colors = [TITLE, LILAC, RED, PURPLE, TITLE]
+    for i, (val, label) in enumerate(summary):
+        x = 25 + sx * i + sx / 2
+        parts.append(f'<text x="{x:.0f}" y="62" text-anchor="middle" style="font-size:16px;font-weight:800;fill:{colors[i]}">{escape(val)}'
+                     f'<tspan style="font-size:11px;font-weight:400;fill:{MUTED}"> {escape(label)}</tspan></text>')
+
+    # month labels
+    last_month = None
+    for wi, week in enumerate(weeks):
+        m = datetime.fromisoformat(week[0][0]).strftime("%b")
+        if m != last_month:
+            if wi < len(weeks) - 2:
+                parts.append(f'<text x="{left + wi * pitch:.1f}" y="{top - 8}" class="muted">{m}</text>')
+            last_month = m
+    # weekday labels
+    for r, name in ((1, "Mon"), (3, "Wed"), (5, "Fri")):
+        parts.append(f'<text x="{left - 8:.1f}" y="{top + r * pitch + 9}" text-anchor="end" class="muted" style="font-size:10px">{name}</text>')
+
+    # cells, revealed week by week
+    for wi, week in enumerate(weeks):
+        cells = []
+        for d, c in week:
+            r = (datetime.fromisoformat(d).isoweekday() % 7)
+            nice = datetime.fromisoformat(d).strftime("%a %b %d, %Y")
+            cells.append(f'<rect x="{left + wi * pitch:.1f}" y="{top + r * pitch}" width="{cell}" height="{cell}" rx="2.5" '
+                         f'fill="{levels[level(c)]}"><title>{c} contribution{"s" if c != 1 else ""} on {nice}</title></rect>')
+        parts.append(f'<g class="fade" style="animation-delay:{wi * 0.018:.3f}s">{"".join(cells)}</g>')
+
+    # legend
+    ly = top + 7 * pitch + 18
+    lx = left + grid_w - 5 * pitch - 40
+    parts.append(f'<text x="{lx - 8:.1f}" y="{ly + 9}" text-anchor="end" class="muted">Less</text>')
+    for i, colr in enumerate(levels):
+        parts.append(f'<rect x="{lx + i * pitch:.1f}" y="{ly}" width="{cell}" height="{cell}" rx="2.5" fill="{colr}"/>')
+    parts.append(f'<text x="{lx + 5 * pitch + 6:.1f}" y="{ly + 9}" class="muted">More</text>')
+    if cuts[0] < cuts[1] < cuts[2]:
+        def rng_s(a, b):
+            return str(a) if a == b else f"{a}–{b}"
+        parts.append(f'<text x="{left:.1f}" y="{ly + 9}" class="muted">'
+                     f'per day: {rng_s(1, cuts[0])} · {rng_s(cuts[0] + 1, cuts[1])} · '
+                     f'{rng_s(cuts[1] + 1, cuts[2])} · {cuts[2] + 1}+</text>')
+
+    return card(int(ly + 32), "\n".join(parts), "Contributions · past year", "")
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -301,6 +396,7 @@ def main():
         "languages.svg": languages_card(data["languages"]) if data["languages"] else None,
         "stats.svg": stats_card(data["stats"]),
         "activity.svg": activity_card(data["days"]),
+        "contributions.svg": heatmap_card(data["weeks"]),
     }
     for name, svg in outputs.items():
         if svg:

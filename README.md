@@ -25,19 +25,13 @@
 
 ---
 
-### 📊 GitHub stats <sub>(auto-updated every 4 hours, includes private repos)</sub>
-
 <p align="center">
   <img width="100%" src="cards/stats.svg" alt="GitHub stats" />
 </p>
 
-### 🧠 Languages I use <sub>(every language across all my repos)</sub>
-
 <p align="center">
   <img width="100%" src="cards/languages.svg" alt="Languages I use" />
 </p>
-
-### 📈 Contribution activity
 
 <p align="center">
   <img width="100%" src="cards/activity.svg" alt="contribution graph" />
@@ -47,18 +41,9 @@
   <img src="https://streak-stats.demolab.com?user=Eienmode&hide_border=true&background=1A1B27&ring=9D4EDD&fire=E0245E&currStreakNum=FF4F8B&currStreakLabel=FF4F8B&sideNums=C0CAF5&sideLabels=BB9AF7&dates=565F89&stroke=414868" alt="GitHub streak" />
 </p>
 
-### 🐍 Contribution snake <sub>(regenerated daily)</sub>
-
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Eienmode/Eienmode/output/snake.svg" alt="contribution snake" />
+  <img width="100%" src="cards/contributions.svg" alt="Contributions in the past year" />
 </p>
-
----
-
-### 🔥 Recent activity <sub>(updated every 6 hours)</sub>
-
-<!--START_SECTION:activity-->
-<!--END_SECTION:activity-->
 
 ---
 
