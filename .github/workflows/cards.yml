@@ -6,11 +6,10 @@ name: Update stat cards
 
 on:
   schedule:
-    - cron: "0 */4 * * *" # every 4 hours
+    - cron: "17 * * * *" # every hour (at :17, when GitHub's queue is less busy)
   workflow_dispatch:
   push:
-    branches: [main]
-    paths: ["scripts/**", ".github/workflows/cards.yml"]
+    branches: [main] # every push you make (the bot's own commits don't re-trigger it)
 
 permissions:
   contents: write
