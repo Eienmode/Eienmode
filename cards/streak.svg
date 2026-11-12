@@ -21,7 +21,7 @@
 <text x="205.0" y="114" text-anchor="middle" class="fade" style="font-size:30px;font-weight:800;fill:#ff4f8b;animation-delay:.4s">2</text>
 <text x="205.0" y="168" text-anchor="middle" style="font-size:13px;font-weight:700;fill:#ff4f8b">Current streak</text>
 <text x="205.0" y="185" text-anchor="middle" class="muted" style="font-size:11px">Nov 11 – Nov 12</text>
-<g class="fade" style="animation-delay:.3s"><text x="68" y="114" text-anchor="middle" style="font-size:28px;font-weight:800;fill:#bb9af7">223</text><text x="68" y="168" text-anchor="middle" class="label">Total contributions</text><text x="68" y="185" text-anchor="middle" class="muted" style="font-size:11px">since Aug 2021</text></g>
+<g class="fade" style="animation-delay:.3s"><text x="68" y="114" text-anchor="middle" style="font-size:28px;font-weight:800;fill:#bb9af7">227</text><text x="68" y="168" text-anchor="middle" class="label">Total contributions</text><text x="68" y="185" text-anchor="middle" class="muted" style="font-size:11px">since Aug 2021</text></g>
 <g class="fade" style="animation-delay:.3s"><text x="342" y="114" text-anchor="middle" style="font-size:28px;font-weight:800;fill:#9d4edd">4</text><text x="342" y="168" text-anchor="middle" class="label">Longest streak</text><text x="342" y="185" text-anchor="middle" class="muted" style="font-size:11px">Oct 29 – Nov 01</text></g>
 <line x1="133.0" y1="66" x2="133.0" y2="180" stroke="#2a2b3d"/>
 <line x1="277.0" y1="66" x2="277.0" y2="180" stroke="#2a2b3d"/>
