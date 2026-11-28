@@ -11,7 +11,7 @@
 </style>
 <rect x="0.5" y="0.5" width="839" height="284" rx="10" fill="#1a1b27" stroke="#2a2b3d"/>
 <text x="25" y="38" class="title">Contributions · last 31 days</text>
-<text x="815" y="38" text-anchor="end" class="muted">539 contributions</text>
+<text x="815" y="38" text-anchor="end" class="muted">553 contributions</text>
 <line x1="60" y1="240.0" x2="815" y2="240.0" stroke="#2a2b3d" stroke-dasharray="3 4"/>
 <text x="48" y="244.0" text-anchor="end" class="muted">0</text>
 <line x1="60" y1="197.5" x2="815" y2="197.5" stroke="#2a2b3d" stroke-dasharray="3 4"/>
@@ -30,8 +30,8 @@
 <text x="689.2" y="262" text-anchor="middle" class="muted">Nov 23</text>
 <text x="815.0" y="262" text-anchor="end" class="muted">Nov 28</text>
 <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9d4edd" stop-opacity=".55"/><stop offset="1" stop-color="#9d4edd" stop-opacity="0"/></linearGradient><linearGradient id="stroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e0245e"/><stop offset=".5" stop-color="#ff4f8b"/><stop offset="1" stop-color="#9d4edd"/></linearGradient></defs>
-<polygon points="60,240 60.0,232.0 85.2,225.4 110.3,224.1 135.5,233.4 160.7,240.0 185.8,240.0 211.0,240.0 236.2,237.3 261.3,238.7 286.5,240.0 311.7,228.0 336.8,70.0 362.0,240.0 387.2,230.7 412.3,194.8 437.5,229.4 462.7,232.0 487.8,214.8 513.0,210.8 538.2,189.5 563.3,186.9 588.5,159.0 613.7,169.6 638.8,201.5 664.0,224.1 689.2,233.4 714.3,238.7 739.5,238.7 764.7,233.4 789.8,238.7 815.0,209.5 815,240" fill="url(#fill)" class="fade"/>
-<polyline points="60.0,232.0 85.2,225.4 110.3,224.1 135.5,233.4 160.7,240.0 185.8,240.0 211.0,240.0 236.2,237.3 261.3,238.7 286.5,240.0 311.7,228.0 336.8,70.0 362.0,240.0 387.2,230.7 412.3,194.8 437.5,229.4 462.7,232.0 487.8,214.8 513.0,210.8 538.2,189.5 563.3,186.9 588.5,159.0 613.7,169.6 638.8,201.5 664.0,224.1 689.2,233.4 714.3,238.7 739.5,238.7 764.7,233.4 789.8,238.7 815.0,209.5" stroke="url(#stroke)" stroke-width="2.5" stroke-linejoin="round" fill="none" class="fade"/>
+<polygon points="60,240 60.0,232.0 85.2,225.4 110.3,224.1 135.5,233.4 160.7,240.0 185.8,240.0 211.0,240.0 236.2,237.3 261.3,238.7 286.5,240.0 311.7,228.0 336.8,70.0 362.0,240.0 387.2,230.7 412.3,194.8 437.5,229.4 462.7,232.0 487.8,214.8 513.0,210.8 538.2,189.5 563.3,186.9 588.5,159.0 613.7,169.6 638.8,201.5 664.0,224.1 689.2,233.4 714.3,238.7 739.5,238.7 764.7,233.4 789.8,238.7 815.0,190.9 815,240" fill="url(#fill)" class="fade"/>
+<polyline points="60.0,232.0 85.2,225.4 110.3,224.1 135.5,233.4 160.7,240.0 185.8,240.0 211.0,240.0 236.2,237.3 261.3,238.7 286.5,240.0 311.7,228.0 336.8,70.0 362.0,240.0 387.2,230.7 412.3,194.8 437.5,229.4 462.7,232.0 487.8,214.8 513.0,210.8 538.2,189.5 563.3,186.9 588.5,159.0 613.7,169.6 638.8,201.5 664.0,224.1 689.2,233.4 714.3,238.7 739.5,238.7 764.7,233.4 789.8,238.7 815.0,190.9" stroke="url(#stroke)" stroke-width="2.5" stroke-linejoin="round" fill="none" class="fade"/>
 <circle cx="60.0" cy="232.0" r="3.5" fill="#1a1b27" stroke="#ff4f8b" stroke-width="2" class="fade"><title>2026-10-29: 6 contributions</title></circle>
 <circle cx="85.2" cy="225.4" r="3.5" fill="#1a1b27" stroke="#ff4f8b" stroke-width="2" class="fade"><title>2026-10-30: 11 contributions</title></circle>
 <circle cx="110.3" cy="224.1" r="3.5" fill="#1a1b27" stroke="#ff4f8b" stroke-width="2" class="fade"><title>2026-10-31: 12 contributions</title></circle>
@@ -62,5 +62,5 @@
 <circle cx="739.5" cy="238.7" r="3.5" fill="#1a1b27" stroke="#ff4f8b" stroke-width="2" class="fade"><title>2026-11-25: 1 contributions</title></circle>
 <circle cx="764.7" cy="233.4" r="3.5" fill="#1a1b27" stroke="#ff4f8b" stroke-width="2" class="fade"><title>2026-11-26: 5 contributions</title></circle>
 <circle cx="789.8" cy="238.7" r="3.5" fill="#1a1b27" stroke="#ff4f8b" stroke-width="2" class="fade"><title>2026-11-27: 1 contributions</title></circle>
-<circle cx="815.0" cy="209.5" r="3.5" fill="#1a1b27" stroke="#ff4f8b" stroke-width="2" class="fade"><title>2026-11-28: 23 contributions</title></circle>
+<circle cx="815.0" cy="190.9" r="3.5" fill="#1a1b27" stroke="#ff4f8b" stroke-width="2" class="fade"><title>2026-11-28: 37 contributions</title></circle>
 </svg>
